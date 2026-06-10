@@ -1,1 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sameer Rai — Graphic Designer & Animator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:        #0D0D0D;
+      --surface:   #161616;
+      --card:      #1E1E1E;
+      --accent:    #B8967A;
+      --accent2:   #8C6F56;
+      --text:      #F0EDE8;
+      --muted:     #888;
+      --border:    #2A2A2A;
+      --display:   'Bebas Neue', sans-serif;
+      --body:      'Space Grotesk', sans-serif;
+      --util:      'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--util);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--display);
+      font-size: clamp(8rem, 22vw, 22rem);
+      letter-spacing: -0.02em;
+      color: transparent;
+      -webkit-text-stroke: 1px #2a2a2a;
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    .hero-tag {
+      font-family: var(--util);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      position: relative;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 2px;
+      background: var(--accent);
+    }
+    h1.hero-name {
+      font-family: var(--display);
+      font-size: clamp(4rem, 11vw, 11rem);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+      position: relative;
+    }
+    h1.hero-name em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      font-weight: 300;
+      position: relative;
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      position: relative;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      font-family: var(--util);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #a3815f; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--text); transform: translateY(-2px); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem; right: 4rem;
+      font-family: var(--util);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px; height: 48px;
+      background: var(--muted);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 4rem; position: relative; }
+    .section-label {
+      font-family: var(--util);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    h2.section-title {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 2rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+      aspect-ratio: 3/4;
+      max-height: 520px;
+      background: var(--card);
+      overflow: hidden;
+    }
+    .about-visual-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display);
+      font-size: 7rem;
+      color: var(--accent);
+      background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .profile-photo {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 18%;
+      display: block;
+      filter: grayscale(0.2) contrast(1.05) brightness(0.95);
+    }
+    .about-visual-inner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(184,150,122,0.18) 0%, rgba(13,13,13,0.35) 100%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    .about-accent-bar {
+      position: absolute;
+      top: 1.5rem; left: -0.75rem;
+      width: 6px; height: 60%;
+      background: var(--accent);
+    }
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #c8c5c0;
+      margin-bottom: 1.5rem;
+    }
+    .about-stats {
+      display: flex; gap: 3rem; margin-top: 3rem;
+    }
+    .stat-num {
+      font-family: var(--display);
+      font-size: 3.2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--util);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3.5rem;
+      padding-left: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -0.45rem; top: 0.4rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .timeline-date {
+      font-family: var(--util);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+    .timeline-role {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-company {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .timeline-desc {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: #b0ada8;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--surface); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+    .project-card:hover { transform: translateY(-6px); border-color: var(--accent); }
+    .project-thumb {
+      aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display);
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-thumb span {
+      position: relative; z-index: 1;
+    }
+    .project-thumb::before {
+      content: '';
+      position: absolute; inset: 0;
+      opacity: 0.15;
+    }
+    .thumb-1 { background: #1a0a00; color: var(--accent); }
+    .thumb-1::before { background: radial-gradient(circle at 30% 50%, var(--accent), transparent 70%); }
+    .thumb-2 { background: #0a0a18; color: #7B61FF; }
+    .thumb-2::before { background: radial-gradient(circle at 70% 30%, #7B61FF, transparent 70%); }
+    .thumb-3 { background: #001a0a; color: #00D97E; }
+    .thumb-3::before { background: radial-gradient(circle at 50% 70%, #00D97E, transparent 70%); }
+    .thumb-4 { background: #1a1500; color: var(--accent2); }
+    .thumb-4::before { background: radial-gradient(circle at 60% 40%, var(--accent2), transparent 70%); }
+    .thumb-5 { background: #12001a; color: #FF61D8; }
+    .thumb-5::before { background: radial-gradient(circle at 40% 60%, #FF61D8, transparent 70%); }
+    .thumb-6 { background: #001520; color: #00B4D8; }
+    .thumb-6::before { background: radial-gradient(circle at 50% 50%, #00B4D8, transparent 70%); }
+    .thumb-img { background: var(--card); }
+    a.thumb-img { display: block; cursor: zoom-in; }
+    .thumb-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .project-card:hover .thumb-img img { transform: scale(1.04); }
+    .project-info { padding: 1.5rem; }
+    .project-tag {
+      font-family: var(--util);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .project-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1rem;
+      font-family: var(--util);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .project-card:hover .project-link { opacity: 1; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    .skills-group-title {
+      font-family: var(--util);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 1.5rem;
+    }
+    .skill-bar-item { margin-bottom: 1.4rem; }
+    .skill-bar-header {
+      display: flex; justify-content: space-between;
+      font-size: 0.9rem; margin-bottom: 0.5rem;
+    }
+    .skill-bar-pct { color: var(--muted); font-size: 0.78rem; }
+    .skill-bar-track {
+      height: 3px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .skill-bar-fill.animate { transform: scaleX(1); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem; }
+    .skill-tag {
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border);
+      font-family: var(--util);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .skill-tag:hover { border-color: var(--accent); color: var(--text); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+    }
+    #contact .section-label { color: rgba(255,255,255,0.7); }
+    #contact .section-label::after { background: rgba(255,255,255,0.2); }
+    #contact h2.section-title { color: #fff; margin-bottom: 1rem; }
+    #contact p {
+      font-size: 1.05rem;
+      opacity: 0.85;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    #contact .btn-primary {
+      background: #fff;
+      color: #8C6F56;
+      font-weight: 600;
+    }
+    #contact .btn-primary:hover { background: #f0ede8; }
+    .contact-socials {
+      margin-top: 3rem;
+      display: flex; justify-content: center; gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: var(--util);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .social-link:hover { color: #fff; transform: translateY(-2px); }
+    .social-icon {
+      width: 20px; height: 20px;
+      flex-shrink: 0;
+    }
+    #contact .doodle { stroke: rgba(255,255,255,0.4); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      padding: 2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-name {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+    }
+    .footer-copy {
+      font-family: var(--util);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── DOODLES ── */
+    .doodle {
+      position: absolute;
+      pointer-events: none;
+      stroke: var(--accent);
+      fill: none;
+      opacity: 0.7;
+      z-index: 2;
+    }
+    .doodle-alt { stroke: var(--accent2); }
+    .doodle-float {
+      animation: doodleFloat 6s ease-in-out infinite;
+    }
+    .doodle-spin {
+      animation: doodleSpin 14s linear infinite;
+      transform-origin: center;
+    }
+    .doodle-draw {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: doodleDraw 2.5s ease forwards 0.4s;
+    }
+    @keyframes doodleFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-16px) rotate(-4deg); }
+    }
+    @keyframes doodleSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes doodleDraw {
+      to { stroke-dashoffset: 0; }
+    }
+    .hero-doodle-arrow { bottom: 6.5rem; left: 18rem; width: 130px; }
+    .hero-doodle-star { top: 13%; right: 7%; width: 100px; }
+    .hero-doodle-artist { top: 6%; left: 3%; width: 200px; }
+    .about-doodle-scribble { top: -2.5rem; right: -2.5rem; width: 130px; }
+    .about-doodle-palette { bottom: -2.5rem; left: -2.5rem; width: 130px; }
+    .experience-doodle-bulb { top: -1rem; right: 2rem; width: 110px; }
+    .skills-doodle-pencil { top: -3.5rem; right: 1rem; width: 130px; }
+    .skills-doodle-note { bottom: -1rem; left: 1rem; width: 100px; }
+    .projects-doodle-spark { top: -2rem; left: 38%; width: 90px; }
+    .projects-doodle-camera { bottom: -1.5rem; right: -1rem; width: 130px; }
+    .contact-doodle-heart { top: -1.5rem; left: 2rem; width: 120px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 5rem 1.5rem; overflow: hidden; }
+      #hero { padding: 0 1.5rem 4rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual { max-height: 280px; aspect-ratio: 4/3; }
+      .skills-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .scroll-hint { display: none; }
+      .hero-doodle-artist { width: 130px; }
+      .hero-doodle-arrow { left: 1rem; bottom: 1rem; width: 90px; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      h1.hero-name { font-size: 4.2rem; }
+      .about-stats { gap: 2rem; }
+      .doodle { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">S<span>.</span>RAI</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-text">DESIGN</div>
+
+    <!-- doodle: sparkle star -->
+    <svg class="doodle doodle-spin hero-doodle-star" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+      <path class="doodle-draw" d="M30 4 C32 18 32 18 46 20 C32 22 32 22 30 36 C28 22 28 22 14 20 C28 18 28 18 30 4 Z" stroke-width="2" stroke-linejoin="round"/>
+      <circle class="doodle-draw" cx="50" cy="46" r="3" stroke-width="2"/>
+    </svg>
+
+    <!-- doodle: artist at easel -->
+    <svg class="doodle doodle-float hero-doodle-artist" viewBox="0 0 140 130" xmlns="http://www.w3.org/2000/svg">
+      <path class="doodle-draw" d="M15 122 L42 18 L70 122" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="doodle-draw" d="M24 78 H62" stroke-width="2.5" stroke-linecap="round"/>
+      <rect class="doodle-draw" x="28" y="14" width="30" height="50" rx="2" stroke-width="2.5"/>
+      <path class="doodle-draw" d="M34 24 L52 38 M52 24 L34 50" stroke-width="2" stroke-linecap="round"/>
+      <circle class="doodle-draw" cx="105" cy="38" r="11" stroke-width="2.5"/>
+      <path class="doodle-draw" d="M105 49 V90" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="doodle-draw" d="M105 60 L128 45" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="doodle-draw" d="M105 90 L92 122 M105 90 L118 122" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+
+    <p class="hero-tag">Available for freelance</p>
+    <h1 class="hero-name">SAMEER<br><em>RAI</em></h1>
+    <p class="hero-sub">A passionate Graphic Designer &amp; Animator with a lifelong love for art — turning imagination into visual stories through design and motion.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Work</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+
+    <!-- doodle: hand-drawn arrow pointing to View Work -->
+    <svg class="doodle doodle-float hero-doodle-arrow" viewBox="0 0 90 50" xmlns="http://www.w3.org/2000/svg">
+      <path class="doodle-draw" d="M4 6 C 30 4, 55 38, 80 30" stroke-width="2" stroke-linecap="round"/>
+      <path class="doodle-draw" d="M68 24 C 73 27, 77 29, 82 30 C 79 34, 76 38, 74 43" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+    <span class="scroll-hint">Scroll</span>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">Who I Am</div>
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <!-- doodle: scribble circle -->
+        <svg class="doodle doodle-float about-doodle-scribble" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <path class="doodle-draw" d="M40 8 C 60 8, 72 24, 70 42 C 68 60, 52 72, 34 70 C 16 68, 6 50, 10 32 C 13 18, 26 6, 40 8 Z" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="about-visual-inner">
+          <img src="profile-photo.jpeg" alt="Sameer Rai" class="profile-photo" />
+        </div>
+        <div class="about-accent-bar"></div>
+      </div>
+      <div class="about-text reveal">
+        <!-- doodle: palette & brush -->
+        <svg class="doodle doodle-float doodle-alt about-doodle-palette" viewBox="0 0 110 100" xmlns="http://www.w3.org/2000/svg">
+          <path class="doodle-draw" d="M55 8 C82 8 100 27 100 50 C100 68 86 74 72 68 C64 65 67 80 53 80 C20 80 8 58 8 46 C8 22 28 8 55 8 Z" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle class="doodle-draw" cx="35" cy="38" r="5" stroke-width="2"/>
+          <circle class="doodle-draw" cx="58" cy="28" r="5" stroke-width="2"/>
+          <circle class="doodle-draw" cx="78" cy="42" r="5" stroke-width="2"/>
+          <circle class="doodle-draw" cx="42" cy="60" r="5" stroke-width="2"/>
+          <path class="doodle-draw" d="M92 70 L108 92" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <h2 class="section-title">Designing<br>With Purpose</h2>
+        <p>I'm Sameer Rai — a graphic designer and animator based in Kathmandu, Nepal. I specialise in visual identities, motion graphics, and animated content that makes brands impossible to ignore.</p>
+        <p>With a sharp eye for colour, composition, and timing, I bridge the gap between static design and living, breathing animation — turning ideas into visual stories that stick.</p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-num">2+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div>
+            <div class="stat-num">20+</div>
+            <div class="stat-label">Projects Done</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">Where I've Worked</div>
+    <h2 class="section-title reveal">Experience</h2>
+    <!-- doodle: lightbulb idea -->
+    <svg class="doodle doodle-float doodle-alt experience-doodle-bulb" viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg">
+      <circle class="doodle-draw" cx="35" cy="32" r="24" stroke-width="2.5"/>
+      <path class="doodle-draw" d="M26 54 H44 M28 62 H42 M31 70 H39" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="doodle-draw" d="M35 4 V12 M10 14 L16 20 M60 14 L54 20 M4 32 H12 M58 32 H66" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-date">Oct 2025 — Present</div>
+        <div class="timeline-role">Senior Freelance Graphic Designer & Animator</div>
+        <div class="timeline-company">Self-Employed (Remote)</div>
+        <div class="timeline-desc">Delivered brand identity systems for 20+ clients, including logo suites, typography guidelines and colour palettes. Produced motion graphics and character animations for e-commerce brands. Designed social media content for various clients. Managed full project lifecycle — brief, concept, iteration, delivery — with a 90% on-time rate.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-date">Dec 2024 — Oct 2025</div>
+        <div class="timeline-role">Graphic Designer</div>
+        <div class="timeline-company">Pariksha Solutions Pvt. Ltd.</div>
+        <div class="timeline-desc">Collaborated with CTOs and art directors on campaigns for the creation of the website (pariksha.solutions) and various social media ads. Designed visually engaging study materials like mock test booklets and practice papers. Developed branding assets including logos, banners and promotional materials for exam batches and courses.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-date">Mar 2024 — Nov 2024</div>
+        <div class="timeline-role">Junior Designer</div>
+        <div class="timeline-company">Nest Nepal</div>
+        <div class="timeline-desc">Supported senior designers on branding and web design projects. Produced UI mockups, icon sets, and presentation decks for client pitches.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Selected Work</div>
+    <h2 class="section-title reveal">Projects</h2>
+    <!-- doodle: spark burst -->
+    <svg class="doodle doodle-float projects-doodle-spark" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+      <path class="doodle-draw" d="M25 4 V20 M25 30 V46 M4 25 H20 M30 25 H46 M10 10 L20 20 M30 30 L40 40 M40 10 L30 20 M20 30 L10 40" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <!-- doodle: camera -->
+    <svg class="doodle doodle-float doodle-alt projects-doodle-camera" viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg">
+      <rect class="doodle-draw" x="5" y="18" width="100" height="56" rx="8" stroke-width="2.5"/>
+      <rect class="doodle-draw" x="38" y="2" width="34" height="16" rx="3" stroke-width="2.5"/>
+      <circle class="doodle-draw" cx="55" cy="46" r="18" stroke-width="2.5"/>
+      <circle class="doodle-draw" cx="55" cy="46" r="8" stroke-width="2"/>
+      <circle class="doodle-draw" cx="90" cy="30" r="3" stroke-width="2"/>
+    </svg>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <a href="livesmart-catalogue.png" target="_blank" rel="noopener" class="project-thumb thumb-img">
+          <img src="livesmart-catalogue.png" alt="Live Smart Pvt. Ltd. furniture catalogue design" />
+        </a>
+        <div class="project-info">
+          <div class="project-tag">Brand & Print Design</div>
+          <div class="project-name">Live Smart Pvt. Ltd. — Furniture Catalogue</div>
+          <div class="project-desc">Designed a complete furniture catalogue and brand layout for Live Smart Pvt. Ltd., including product spreads, branding elements, and lifestyle compositions for their "Designing Spaces That Tastes Better" campaign.</div>
+          <a href="livesmart-catalogue.png" target="_blank" rel="noopener" class="project-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-thumb thumb-1"><span>🔥</span></div>
+        <div class="project-info">
+          <div class="project-tag">Brand Identity</div>
+          <div class="project-name">Ember Collective</div>
+          <div class="project-desc">Full visual identity for a Kathmandu-based creative collective — logo system, colour palette, and brand guidelines.</div>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-thumb thumb-2"><span>🎬</span></div>
+        <div class="project-info">
+          <div class="project-tag">Motion Graphics</div>
+          <div class="project-name">Prism Motion Reel</div>
+          <div class="project-desc">A 60-second animated showreel featuring kinetic typography, logo animations, and 2D character motion.</div>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-thumb thumb-3"><span>🌿</span></div>
+        <div class="project-info">
+          <div class="project-tag">Social Campaign</div>
+          <div class="project-name">GreenRoot Nepal</div>
+          <div class="project-desc">Visual campaign for an environmental NGO — animated Instagram stories, posters, and digital banners.</div>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-thumb thumb-4"><span>✦</span></div>
+        <div class="project-info">
+          <div class="project-tag">Explainer Animation</div>
+          <div class="project-name">FinFlow App Intro</div>
+          <div class="project-desc">90-second explainer animation for a fintech startup, scripted and animated end-to-end in After Effects.</div>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-thumb thumb-5"><span>💫</span></div>
+        <div class="project-info">
+          <div class="project-tag">Illustration</div>
+          <div class="project-name">Neon Dreamscape Series</div>
+          <div class="project-desc">A personal series of 8 editorial illustrations exploring Kathmandu nightlife through bold, neon-drenched visuals.</div>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-thumb thumb-6"><span>📦</span></div>
+        <div class="project-info">
+          <div class="project-tag">Packaging Design</div>
+          <div class="project-name">Himalayan Brew Co.</div>
+          <div class="project-desc">Label and packaging design for an artisan tea brand — from concept sketching to print-ready files.</div>
+          <a href="#" class="project-link">View Project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Toolkit</div>
+    <h2 class="section-title reveal">Skills</h2>
+    <!-- doodle: pencil -->
+    <svg class="doodle doodle-float skills-doodle-pencil" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+      <path class="doodle-draw" d="M14 56 L42 14 L56 24 L28 64 L12 60 Z" stroke-width="2.5" stroke-linejoin="round"/>
+      <path class="doodle-draw" d="M37 21 L51 31" stroke-width="2.5"/>
+    </svg>
+    <!-- doodle: music note -->
+    <svg class="doodle doodle-float doodle-alt skills-doodle-note" viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+      <circle class="doodle-draw" cx="14" cy="65" r="11" stroke-width="2.5"/>
+      <circle class="doodle-draw" cx="40" cy="55" r="11" stroke-width="2.5"/>
+      <path class="doodle-draw" d="M25 65 V8 L51 2 V45" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="skills-layout">
+      <div class="reveal">
+        <div class="skills-group-title">Design & Animation</div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span>Adobe Illustrator</span><span class="skill-bar-pct">90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span>Adobe Photoshop</span><span class="skill-bar-pct">88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span>After Effects</span><span class="skill-bar-pct">82%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span>Procreate</span><span class="skill-bar-pct">85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span>Figma</span><span class="skill-bar-pct">90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="skills-group-title">Specialisations</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Brand Identity</span>
+          <span class="skill-tag">Motion Graphics</span>
+          <span class="skill-tag">2D Animation</span>
+          <span class="skill-tag">Typography</span>
+          <span class="skill-tag">Logo Design</span>
+          <span class="skill-tag">Social Media Design</span>
+          <span class="skill-tag">Explainer Videos</span>
+          <span class="skill-tag">Poster Design</span>
+          <span class="skill-tag">Packaging</span>
+          <span class="skill-tag">UI Mockups</span>
+          <span class="skill-tag">Colour Theory</span>
+          <span class="skill-tag">Illustration</span>
+          <span class="skill-tag">Storyboarding</span>
+          <span class="skill-tag">Print Design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Say Hello</div>
+    <h2 class="section-title">Let's Make<br>Something Bold</h2>
+    <p>Got a project in mind? Whether it's a brand refresh, a motion piece, or something entirely new — let's talk.</p>
+    <a href="mailto:srai99132@gmail.com" class="btn btn-primary">srai99132@gmail.com</a>
+    <div class="contact-socials">
+      <a href="tel:+9779742277431" class="social-link">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>+977-9742277431</span>
+      </a>
+      <a href="https://instagram.com/sameerbantawa_rai" target="_blank" rel="noopener" class="social-link">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <span>Instagram</span>
+      </a>
+      <a href="https://www.linkedin.com/in/sameer-rai-138416415" target="_blank" rel="noopener" class="social-link">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        <span>LinkedIn</span>
+      </a>
+    </div>
+
+    <!-- doodle: heart scribble -->
+    <svg class="doodle doodle-float contact-doodle-heart" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+      <path class="doodle-draw" d="M50 85 C 10 60 5 30 25 18 C 40 9 50 25 50 25 C 50 25 60 9 75 18 C 95 30 90 60 50 85 Z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">SAMEER RAI</div>
+    <div class="footer-copy">© 2026 · Kathmandu, Nepal · All rights reserved</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          // Skill bars
+          e.target.querySelectorAll('.skill-bar-fill').forEach(bar => bar.classList.add('animate'));
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Skill bars inside already-visible section
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('animate');
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.skill-bar-fill').forEach(el => skillObserver.observe(el));
+  </script>
+</body>
+</html>
