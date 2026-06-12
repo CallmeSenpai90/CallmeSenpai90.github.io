@@ -68,20 +68,6 @@
       position: relative;
       overflow: hidden;
     }
-    .hero-bg-text {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: var(--display);
-      font-size: clamp(8rem, 22vw, 22rem);
-      letter-spacing: -0.02em;
-      color: transparent;
-      -webkit-text-stroke: 1px #2a2a2a;
-      white-space: nowrap;
-      user-select: none;
-      pointer-events: none;
-      opacity: 0.5;
-    }
     .hero-tag {
       font-family: var(--util);
       font-size: 0.72rem;
@@ -481,7 +467,9 @@
       width: 20px; height: 20px;
       flex-shrink: 0;
     }
-    #contact .doodle { stroke: rgba(255,255,255,0.4); }
+    #contact .doodle { stroke: rgba(255,255,255,0.45); }
+    #contact .doodle-fill { fill: rgba(255,255,255,0.85); }
+    #contact .doodle-fill.doodle-alt { fill: rgba(255,255,255,0.5); }
 
     /* ── FOOTER ── */
     footer {
@@ -546,17 +534,203 @@
     @keyframes doodleDraw {
       to { stroke-dashoffset: 0; }
     }
+    .doodle-fill { fill: var(--accent); stroke: none; }
+    .doodle-fill.doodle-alt { fill: var(--accent2); stroke: none; }
+    .doodle-twinkle {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: doodleTwinkle 1.8s ease-in-out infinite;
+    }
+    .doodle-pulse {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: doodlePulse 1.6s ease-in-out infinite;
+    }
+    @keyframes doodleTwinkle {
+      0%, 100% { opacity: 0.25; transform: scale(0.7); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+    @keyframes doodlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
     .hero-doodle-arrow { bottom: 6.5rem; left: 18rem; width: 130px; }
-    .hero-doodle-star { top: 13%; right: 7%; width: 100px; }
-    .hero-doodle-artist { top: 6%; left: 3%; width: 200px; }
-    .about-doodle-scribble { top: -2.5rem; right: -2.5rem; width: 130px; }
+    .hero-doodle-star { top: 12%; right: 6%; width: 110px; }
+    .hero-doodle-artist { top: 5%; left: 3%; width: 230px; }
+    .about-doodle-scribble { top: -2.5rem; right: -2.5rem; width: 150px; }
     .about-doodle-palette { bottom: -2.5rem; left: -2.5rem; width: 130px; }
     .experience-doodle-bulb { top: -1rem; right: 2rem; width: 110px; }
-    .skills-doodle-pencil { top: -3.5rem; right: 1rem; width: 130px; }
-    .skills-doodle-note { bottom: -1rem; left: 1rem; width: 100px; }
-    .projects-doodle-spark { top: -2rem; left: 38%; width: 90px; }
+    .skills-doodle-pencil { top: -3.5rem; right: 1rem; width: 140px; }
+    .skills-doodle-note { bottom: -1rem; left: 1rem; width: 110px; }
+    .projects-doodle-spark { top: -2.5rem; left: 38%; width: 100px; }
     .projects-doodle-camera { bottom: -1.5rem; right: -1rem; width: 130px; }
-    .contact-doodle-heart { top: -1.5rem; left: 2rem; width: 120px; }
+    .contact-doodle-guitar { top: -1.5rem; right: 2rem; left: auto; width: 110px; }
+
+    /* ── ANIMATED CHARACTERS ── */
+    .character-svg {
+      position: absolute;
+      pointer-events: none;
+      z-index: 2;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .character-svg .char-fill { fill: var(--accent); stroke: none; }
+    .character-svg .char-fill-alt { fill: var(--accent2); stroke: none; }
+    #contact .character-svg { stroke: rgba(255,255,255,0.85); }
+    #contact .character-svg .char-fill { fill: rgba(255,255,255,0.92); }
+    #contact .character-svg .char-fill-alt { fill: rgba(255,255,255,0.5); }
+
+    .char-bob {
+      animation: charBob 3s ease-in-out infinite;
+      transform-origin: 70px 100px;
+    }
+    .char-bob2 {
+      animation: charBob 3.4s ease-in-out infinite 0.4s;
+      transform-origin: 60px 90px;
+    }
+    @keyframes charBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-9px); }
+    }
+
+    .char-jump {
+      animation: charJump 1.5s ease-in-out infinite;
+      transform-origin: 75px 130px;
+    }
+    @keyframes charJump {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      30% { transform: translateY(-22px) scaleY(1.04); }
+      50% { transform: translateY(-22px) scaleY(0.96); }
+      72% { transform: translateY(0) scaleY(0.92); }
+    }
+
+    .char-eyes { animation: charBlink 4.5s ease-in-out infinite; transform-origin: 68px 50px; }
+    .char-eyes2 { animation: charBlink 5s ease-in-out infinite 0.6s; transform-origin: 50px 42px; }
+    @keyframes charBlink {
+      0%, 88%, 100% { transform: scaleY(1); }
+      94% { transform: scaleY(0.1); }
+    }
+
+    .char-wave { animation: charWave 1.6s ease-in-out infinite; transform-origin: 98px 96px; }
+    @keyframes charWave {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-24deg); }
+    }
+
+    .char-pencil { animation: charPencil 1s ease-in-out infinite; transform-origin: 78px 90px; }
+    @keyframes charPencil {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(7deg); }
+    }
+
+    .confetti {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: confettiFall 2.4s ease-in-out infinite;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(-6px) rotate(0deg); opacity: 0.4; }
+      50% { transform: translateY(6px) rotate(180deg); opacity: 1; }
+      100% { transform: translateY(-6px) rotate(360deg); opacity: 0.4; }
+    }
+
+    .contact-character { bottom: 0; right: 6%; width: 170px; }
+
+    /* ── NAV TOGGLE (mobile hamburger) ── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 30px; height: 24px;
+      background: none; border: none;
+      appearance: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 100%; height: 2px;
+      background: var(--text);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+    .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── HERO VILLAGE / PAGODA ── */
+    .hero-village {
+      position: absolute;
+      top: 0; right: 0;
+      width: 380px;
+      opacity: 0.14;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-village .village-fill { fill: var(--accent); stroke: none; }
+    .hero-village .village-fill-alt { fill: var(--accent2); stroke: none; }
+    .hero-village .lantern-glow {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: doodlePulse 2.6s ease-in-out infinite;
+      opacity: 0.6;
+    }
+
+    /* ── CAT CHASING A BALL OF YARN ── */
+    .cat-chase {
+      bottom: 2.2rem; left: 0;
+      width: 160px;
+      animation: catChase 17s linear infinite;
+    }
+    @keyframes catChase {
+      0%   { transform: translateX(115vw); }
+      100% { transform: translateX(-220px); }
+    }
+    .yarn-roll {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: yarnRoll 1.4s linear infinite;
+    }
+    @keyframes yarnRoll {
+      to { transform: rotate(-360deg); }
+    }
+    .cat-run {
+      animation: catBounce 0.45s ease-in-out infinite alternate;
+      transform-box: fill-box;
+      transform-origin: bottom center;
+    }
+    @keyframes catBounce {
+      from { transform: translateY(0) rotate(0deg); }
+      to   { transform: translateY(-5px) rotate(-2deg); }
+    }
+
+    /* ── KITE-FLYING BOY (Experience) ── */
+    .kite-character { bottom: -1.5rem; right: 1.5rem; left: auto; width: 200px; }
+    .kite-sway {
+      animation: kiteSway 4.5s ease-in-out infinite;
+      transform-origin: 78px 175px;
+    }
+    @keyframes kiteSway {
+      0%, 100% { transform: rotate(-3deg) translate(0, 0); }
+      50%      { transform: rotate(4deg) translate(4px, -8px); }
+    }
+    .wind-line {
+      stroke-dasharray: 12 10;
+      opacity: 0.55;
+      animation: windBlow 2.2s linear infinite;
+    }
+    @keyframes windBlow {
+      to { stroke-dashoffset: -44; }
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -569,14 +743,51 @@
       .skills-layout { grid-template-columns: 1fr; gap: 2.5rem; }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
       .scroll-hint { display: none; }
-      .hero-doodle-artist { width: 130px; }
+      .hero-doodle-artist { width: 150px; }
       .hero-doodle-arrow { left: 1rem; bottom: 1rem; width: 90px; }
+      .contact-character { width: 130px; right: 1rem; }
+      .hero-village { width: 230px; opacity: 0.12; }
+      .cat-chase { width: 120px; bottom: 1.5rem; }
+      .kite-character { width: 150px; right: 0.5rem; left: auto; }
     }
     @media (max-width: 600px) {
-      .nav-links { display: none; }
+      nav { padding: 1rem 1.25rem; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.1rem;
+        background: rgba(13,13,13,0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 1.25rem 1.5rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 0.85rem; }
       h1.hero-name { font-size: 4.2rem; }
       .about-stats { gap: 2rem; }
       .doodle { display: none; }
+      .character-svg { display: none; }
+      .hero-village { display: none; }
+    }
+    @media (max-width: 420px) {
+      section { padding: 4rem 1.25rem; }
+      #hero { padding: 0 1.25rem 3rem; }
+      h1.hero-name { font-size: 3.4rem; }
+      .hero-sub { font-size: 0.95rem; max-width: 100%; }
+      .hero-cta { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .btn { width: 100%; text-align: center; }
+      .about-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .stat-num { font-size: 2.6rem; }
+      h2.section-title { font-size: clamp(2.2rem, 9vw, 3.5rem); }
+      .timeline { padding-left: 1.2rem; }
+      .timeline-item { padding-left: 1.5rem; }
+      .skill-tags { gap: 0.4rem; }
+      .skill-tag { font-size: 0.66rem; padding: 0.35rem 0.7rem; }
+      footer { padding: 1.5rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -596,28 +807,134 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="nav-toggle" aria-label="Toggle navigation menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-bg-text">DESIGN</div>
 
-    <!-- doodle: sparkle star -->
-    <svg class="doodle doodle-spin hero-doodle-star" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-      <path class="doodle-draw" d="M30 4 C32 18 32 18 46 20 C32 22 32 22 30 36 C28 22 28 22 14 20 C28 18 28 18 30 4 Z" stroke-width="2" stroke-linejoin="round"/>
-      <circle class="doodle-draw" cx="50" cy="46" r="3" stroke-width="2"/>
+    <!-- decorative: chinese-styled pagoda & village skyline -->
+    <svg class="hero-village" viewBox="0 0 460 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- moon -->
+      <circle class="village-fill" cx="402" cy="34" r="20"/>
+      <circle cx="412" cy="26" r="20" fill="#0D0D0D"/>
+
+      <!-- distant hills -->
+      <path d="M0 200 C 60 180 120 195 180 185 C 240 175 300 195 360 188 C 410 183 440 195 460 190"/>
+
+      <!-- left village hut -->
+      <path d="M14 158 L54 126 L94 158 Z"/>
+      <rect x="28" y="158" width="52" height="48"/>
+      <rect x="46" y="178" width="16" height="28"/>
+      <line x1="14" y1="158" x2="94" y2="158"/>
+
+      <!-- right village hut -->
+      <path d="M330 168 L365 142 L400 168 Z"/>
+      <rect x="342" y="168" width="46" height="38"/>
+      <line x1="330" y1="168" x2="400" y2="168"/>
+
+      <!-- pagoda spire -->
+      <line x1="240" y1="8" x2="240" y2="40"/>
+      <circle class="village-fill" cx="240" cy="8" r="4"/>
+      <ellipse cx="240" cy="20" rx="9" ry="3"/>
+      <ellipse cx="240" cy="30" rx="13" ry="3"/>
+
+      <!-- pagoda tier 1 (top) -->
+      <path d="M205 64 C 196 50 218 42 240 44 C 262 42 284 50 275 64 Z"/>
+      <rect x="218" y="64" width="44" height="34"/>
+
+      <!-- pagoda tier 2 -->
+      <path d="M182 102 C 170 86 200 76 240 78 C 280 76 310 86 298 102 Z"/>
+      <rect x="200" y="102" width="80" height="40"/>
+      <path d="M232 142 L232 116 L248 116 L248 142"/>
+
+      <!-- pagoda tier 3 (bottom, widest) -->
+      <path d="M150 146 C 134 126 175 114 240 116 C 305 114 346 126 330 146 Z"/>
+      <rect x="172" y="146" width="136" height="50"/>
+      <line x1="172" y1="170" x2="308" y2="170"/>
+
+      <!-- base platform -->
+      <rect x="150" y="196" width="180" height="10"/>
+      <rect x="135" y="206" width="210" height="8"/>
+
+      <!-- hanging lanterns -->
+      <line x1="195" y1="64" x2="195" y2="80"/>
+      <rect class="village-fill-alt lantern-glow" x="188" y="80" width="14" height="18" rx="4"/>
+      <line x1="285" y1="64" x2="285" y2="80"/>
+      <rect class="village-fill-alt lantern-glow" x="278" y="80" width="14" height="18" rx="4" style="animation-delay:0.6s"/>
     </svg>
 
-    <!-- doodle: artist at easel -->
-    <svg class="doodle doodle-float hero-doodle-artist" viewBox="0 0 140 130" xmlns="http://www.w3.org/2000/svg">
-      <path class="doodle-draw" d="M15 122 L42 18 L70 122" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path class="doodle-draw" d="M24 78 H62" stroke-width="2.5" stroke-linecap="round"/>
-      <rect class="doodle-draw" x="28" y="14" width="30" height="50" rx="2" stroke-width="2.5"/>
-      <path class="doodle-draw" d="M34 24 L52 38 M52 24 L34 50" stroke-width="2" stroke-linecap="round"/>
-      <circle class="doodle-draw" cx="105" cy="38" r="11" stroke-width="2.5"/>
-      <path class="doodle-draw" d="M105 49 V90" stroke-width="2.5" stroke-linecap="round"/>
-      <path class="doodle-draw" d="M105 60 L128 45" stroke-width="2.5" stroke-linecap="round"/>
-      <path class="doodle-draw" d="M105 90 L92 122 M105 90 L118 122" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- animation: cat chasing a ball of yarn (right to left) -->
+    <svg class="character-svg cat-chase" viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- rolling ball of yarn -->
+      <g class="yarn-roll">
+        <circle class="char-fill-alt" cx="34" cy="78" r="20" opacity="0.85"/>
+        <path d="M18 78 C 26 64 42 64 50 78" stroke-width="2"/>
+        <path d="M16 84 C 26 94 42 94 52 84" stroke-width="2"/>
+        <path d="M14 78 C 24 70 44 70 54 78" stroke-width="2"/>
+        <path d="M22 64 C 30 76 38 80 48 92" stroke-width="2"/>
+        <path d="M48 64 C 40 76 32 80 22 92" stroke-width="2"/>
+      </g>
+      <!-- trailing yarn string -->
+      <path d="M52 80 C 80 92 100 70 118 86" stroke-width="2" stroke-dasharray="4 5"/>
+
+      <!-- chasing cat (side view, facing left) -->
+      <g class="cat-run">
+        <path d="M192 56 C 214 50 226 30 214 18" stroke-width="2.5"/>
+        <path d="M118 80 C 112 58 138 44 168 48 C 196 50 206 66 200 84 C 178 96 138 96 118 80 Z"/>
+        <circle cx="130" cy="44" r="20"/>
+        <path d="M114 32 L108 16 L126 28 Z"/>
+        <path d="M144 30 L150 14 L160 28 Z"/>
+        <circle class="char-fill" cx="124" cy="44" r="2.5"/>
+        <path d="M110 48 L94 44 M110 52 L94 54" stroke-width="1.5"/>
+        <circle class="char-fill-alt" cx="116" cy="50" r="2"/>
+        <path d="M134 92 L130 106" stroke-width="3"/>
+        <path d="M160 94 L166 108" stroke-width="3"/>
+        <path d="M186 90 L192 104" stroke-width="3"/>
+        <path d="M122 90 L114 104" stroke-width="3"/>
+      </g>
+    </svg>
+
+    <!-- doodle: manga sparkle cluster -->
+    <svg class="doodle hero-doodle-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path class="doodle-fill doodle-twinkle" d="M50 10 C 53 32, 56 35, 78 38 C 56 41, 53 44, 50 66 C 47 44, 44 41, 22 38 C 44 35, 47 32, 50 10 Z"/>
+      <path class="doodle-fill doodle-alt doodle-twinkle" style="animation-delay:0.4s" d="M82 58 C 83.5 67, 85 68.5, 94 70 C 85 71.5, 83.5 73, 82 82 C 80.5 73, 79 71.5, 70 70 C 79 68.5, 80.5 67, 82 58 Z"/>
+      <path class="doodle-fill doodle-twinkle" style="animation-delay:0.9s" d="M18 62 C 19 67, 20 68, 25 69 C 20 70, 19 71, 18 76 C 17 71, 16 70, 11 69 C 16 68, 17 67, 18 62 Z"/>
+    </svg>
+
+    <!-- doodle: chibi artist at easel -->
+    <svg class="doodle doodle-float hero-doodle-artist" viewBox="0 0 160 150" xmlns="http://www.w3.org/2000/svg">
+      <!-- easel -->
+      <path class="doodle-draw" d="M8 144 L34 30 L60 144" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="doodle-draw" d="M16 100 H52" stroke-width="2.5" stroke-linecap="round"/>
+      <rect class="doodle-draw" x="20" y="24" width="28" height="46" rx="2" stroke-width="2.5"/>
+      <path class="doodle-draw" d="M26 34 L42 46 M42 34 L26 56" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- chibi body -->
+      <path class="doodle-draw" d="M85 95 C 78 100 76 115 80 130 C 95 140 125 140 140 130 C 144 115 142 100 135 95 Z" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- arm holding brush -->
+      <path class="doodle-draw" d="M132 100 L154 80" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="doodle-draw" d="M152 78 L162 68" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- chibi head (big, anime style) -->
+      <circle class="doodle-draw" cx="110" cy="55" r="34" stroke-width="2.5"/>
+      <!-- spiky hair -->
+      <path class="doodle-draw" d="M80 40 L70 22 M92 26 L88 6 M108 20 L108 0 M126 26 L132 6 M138 40 L150 22" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- big sparkly eyes -->
+      <circle class="doodle-fill" cx="98" cy="58" r="6"/>
+      <circle class="doodle-fill" cx="124" cy="58" r="6"/>
+      <circle class="doodle-fill doodle-alt" cx="100.5" cy="55.5" r="2"/>
+      <circle class="doodle-fill doodle-alt" cx="126.5" cy="55.5" r="2"/>
+      <!-- blush -->
+      <ellipse class="doodle-fill doodle-alt" style="opacity:0.5" cx="90" cy="68" rx="5" ry="3"/>
+      <ellipse class="doodle-fill doodle-alt" style="opacity:0.5" cx="132" cy="68" rx="5" ry="3"/>
+      <!-- smile -->
+      <path class="doodle-draw" d="M104 74 Q111 80 118 74" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- creative sparkle -->
+      <path class="doodle-fill doodle-twinkle" style="animation-delay:0.3s" d="M150 50 C 151.5 58, 153 59.5, 161 61 C 153 62.5, 151.5 64, 150 72 C 148.5 64, 147 62.5, 139 61 C 147 59.5, 148.5 58, 150 50 Z"/>
     </svg>
 
     <p class="hero-tag">Available for freelance</p>
@@ -642,9 +959,15 @@
     <div class="section-label">Who I Am</div>
     <div class="about-grid">
       <div class="about-visual reveal">
-        <!-- doodle: scribble circle -->
-        <svg class="doodle doodle-float about-doodle-scribble" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-          <path class="doodle-draw" d="M40 8 C 60 8, 72 24, 70 42 C 68 60, 52 72, 34 70 C 16 68, 6 50, 10 32 C 13 18, 26 6, 40 8 Z" stroke-width="2" stroke-linecap="round"/>
+        <!-- doodle: kawaii cloud face -->
+        <svg class="doodle doodle-float about-doodle-scribble" viewBox="0 0 110 90" xmlns="http://www.w3.org/2000/svg">
+          <path class="doodle-draw" d="M28 60 C 12 60 6 44 18 38 C 16 22 36 14 46 24 C 54 10 78 12 82 28 C 98 26 104 46 90 54 C 96 68 78 76 66 66 C 58 76 36 74 28 60 Z" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle class="doodle-fill" cx="44" cy="42" r="4.5"/>
+          <circle class="doodle-fill" cx="68" cy="42" r="4.5"/>
+          <path class="doodle-draw" d="M48 54 Q56 60 64 54" stroke-width="2" stroke-linecap="round"/>
+          <ellipse class="doodle-fill doodle-alt" style="opacity:0.5" cx="36" cy="50" rx="4" ry="2.5"/>
+          <ellipse class="doodle-fill doodle-alt" style="opacity:0.5" cx="76" cy="50" rx="4" ry="2.5"/>
+          <path class="doodle-fill doodle-alt doodle-twinkle" style="animation-delay:0.6s" d="M94 8 C 95 13, 96 14, 101 15 C 96 16, 95 17, 94 22 C 93 17, 92 16, 87 15 C 92 14, 93 13, 94 8 Z"/>
         </svg>
         <div class="about-visual-inner">
           <img src="profile-photo.jpeg" alt="Sameer Rai" class="profile-photo" />
@@ -660,6 +983,7 @@
           <circle class="doodle-draw" cx="78" cy="42" r="5" stroke-width="2"/>
           <circle class="doodle-draw" cx="42" cy="60" r="5" stroke-width="2"/>
           <path class="doodle-draw" d="M92 70 L108 92" stroke-width="2.5" stroke-linecap="round"/>
+          <path class="doodle-fill doodle-twinkle" style="animation-delay:0.2s" d="M14 12 C 15 18, 16.5 19.5, 22 21 C 16.5 22.5, 15 24, 14 30 C 13 24, 11.5 22.5, 6 21 C 11.5 19.5, 13 18, 14 12 Z"/>
         </svg>
         <h2 class="section-title">Designing<br>With Purpose</h2>
         <p>I'm Sameer Rai — a graphic designer and animator based in Kathmandu, Nepal. I specialise in visual identities, motion graphics, and animated content that makes brands impossible to ignore.</p>
@@ -687,6 +1011,48 @@
       <circle class="doodle-draw" cx="35" cy="32" r="24" stroke-width="2.5"/>
       <path class="doodle-draw" d="M26 54 H44 M28 62 H42 M31 70 H39" stroke-width="2.5" stroke-linecap="round"/>
       <path class="doodle-draw" d="M35 4 V12 M10 14 L16 20 M60 14 L54 20 M4 32 H12 M58 32 H66" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="doodle-fill doodle-twinkle" style="animation-delay:0.5s" d="M55 0 C 56.5 7, 58.5 9, 66 10.5 C 58.5 12, 56.5 14, 55 21 C 53.5 14, 51.5 12, 44 10.5 C 51.5 9, 53.5 7, 55 0 Z"/>
+    </svg>
+
+    <!-- animation: boy (back view) flying a kite, with wind -->
+    <svg class="character-svg kite-character" viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g class="kite-sway">
+        <!-- wind lines -->
+        <path class="wind-line" d="M10 40 C 40 30 70 50 100 38" stroke-width="2"/>
+        <path class="wind-line" d="M20 60 C 50 52 78 68 108 58" stroke-width="2" style="animation-delay:0.5s"/>
+        <path class="wind-line" d="M0 85 C 30 78 55 92 85 84" stroke-width="2" style="animation-delay:1s"/>
+
+        <!-- kite string -->
+        <path d="M120 170 C 140 130 150 90 160 50" stroke-width="1.5" stroke-dasharray="2 4"/>
+
+        <!-- kite -->
+        <path class="char-fill" d="M160 14 L196 50 L160 86 L124 50 Z" opacity="0.85"/>
+        <path d="M160 14 L196 50 L160 86 L124 50 Z" stroke-width="2"/>
+        <line x1="124" y1="50" x2="196" y2="50" stroke-width="1.5"/>
+        <line x1="160" y1="14" x2="160" y2="86" stroke-width="1.5"/>
+        <!-- kite tail -->
+        <path d="M160 86 C 155 100 165 108 158 120 C 168 128 152 138 162 148" stroke-width="2"/>
+        <path class="char-fill-alt" d="M156 104 L164 104 L160 112 Z"/>
+        <path class="char-fill-alt" d="M154 130 L166 130 L160 140 Z"/>
+      </g>
+
+      <!-- boy, facing away -->
+      <g class="char-bob">
+        <!-- hair (back of head) -->
+        <path d="M48 158 L36 144 M62 150 L56 134 M78 148 L80 132 M94 152 L102 138" stroke-width="2.5"/>
+        <!-- head -->
+        <circle cx="70" cy="172" r="26"/>
+        <!-- raised arm holding string -->
+        <path d="M92 196 C 108 184 116 178 122 170" stroke-width="3"/>
+        <circle class="char-fill" cx="122" cy="170" r="5"/>
+        <!-- back/body -->
+        <path d="M44 202 C 44 196 96 196 96 202 L 104 244 C 78 256 56 256 32 244 Z"/>
+        <!-- lowered arm -->
+        <path d="M44 206 C 32 220 30 238 36 250" stroke-width="3"/>
+        <!-- feet -->
+        <ellipse class="char-fill-alt" cx="52" cy="252" rx="12" ry="6"/>
+        <ellipse class="char-fill-alt" cx="80" cy="252" rx="12" ry="6"/>
+      </g>
     </svg>
     <div class="timeline">
       <div class="timeline-item reveal">
@@ -714,9 +1080,10 @@
   <section id="projects">
     <div class="section-label">Selected Work</div>
     <h2 class="section-title reveal">Projects</h2>
-    <!-- doodle: spark burst -->
-    <svg class="doodle doodle-float projects-doodle-spark" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-      <path class="doodle-draw" d="M25 4 V20 M25 30 V46 M4 25 H20 M30 25 H46 M10 10 L20 20 M30 30 L40 40 M40 10 L30 20 M20 30 L10 40" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- doodle: manga sparkle cluster -->
+    <svg class="doodle projects-doodle-spark" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+      <path class="doodle-fill doodle-twinkle" d="M45 6 C 47.5 28, 50.5 31, 73 33.5 C 50.5 36, 47.5 39, 45 61 C 42.5 39, 39.5 36, 17 33.5 C 39.5 31, 42.5 28, 45 6 Z"/>
+      <path class="doodle-fill doodle-alt doodle-twinkle" style="animation-delay:0.5s" d="M75 55 C 76 61, 77 62, 83 63 C 77 64, 76 65, 75 71 C 74 65, 73 64, 67 63 C 73 62, 74 61, 75 55 Z"/>
     </svg>
     <!-- doodle: camera -->
     <svg class="doodle doodle-float doodle-alt projects-doodle-camera" viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg">
@@ -725,6 +1092,7 @@
       <circle class="doodle-draw" cx="55" cy="46" r="18" stroke-width="2.5"/>
       <circle class="doodle-draw" cx="55" cy="46" r="8" stroke-width="2"/>
       <circle class="doodle-draw" cx="90" cy="30" r="3" stroke-width="2"/>
+      <path class="doodle-fill doodle-twinkle" style="animation-delay:0.3s" d="M14 4 C 15.5 11, 17.5 13, 25 14.5 C 17.5 16, 15.5 18, 14 25 C 12.5 18, 10.5 16, 3 14.5 C 10.5 13, 12.5 11, 14 4 Z"/>
     </svg>
     <div class="projects-grid">
       <div class="project-card reveal">
@@ -800,15 +1168,18 @@
     <div class="section-label">Toolkit</div>
     <h2 class="section-title reveal">Skills</h2>
     <!-- doodle: pencil -->
-    <svg class="doodle doodle-float skills-doodle-pencil" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+    <svg class="doodle doodle-float skills-doodle-pencil" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
       <path class="doodle-draw" d="M14 56 L42 14 L56 24 L28 64 L12 60 Z" stroke-width="2.5" stroke-linejoin="round"/>
       <path class="doodle-draw" d="M37 21 L51 31" stroke-width="2.5"/>
+      <path class="doodle-draw" d="M62 16 H80 M60 28 H76 M66 6 H82" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="doodle-fill doodle-alt doodle-twinkle" style="animation-delay:0.7s" d="M70 50 C 71.5 57, 73.5 59, 81 60.5 C 73.5 62, 71.5 64, 70 71 C 68.5 64, 66.5 62, 59 60.5 C 66.5 59, 68.5 57, 70 50 Z"/>
     </svg>
     <!-- doodle: music note -->
-    <svg class="doodle doodle-float doodle-alt skills-doodle-note" viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+    <svg class="doodle doodle-float doodle-alt skills-doodle-note" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
       <circle class="doodle-draw" cx="14" cy="65" r="11" stroke-width="2.5"/>
       <circle class="doodle-draw" cx="40" cy="55" r="11" stroke-width="2.5"/>
       <path class="doodle-draw" d="M25 65 V8 L51 2 V45" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="doodle-fill doodle-twinkle" style="animation-delay:0.4s" d="M68 18 C 69.5 25, 71.5 27, 79 28.5 C 71.5 30, 69.5 32, 68 39 C 66.5 32, 64.5 30, 57 28.5 C 64.5 27, 66.5 25, 68 18 Z"/>
     </svg>
     <div class="skills-layout">
       <div class="reveal">
@@ -877,9 +1248,29 @@
       </a>
     </div>
 
-    <!-- doodle: heart scribble -->
-    <svg class="doodle doodle-float contact-doodle-heart" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
-      <path class="doodle-draw" d="M50 85 C 10 60 5 30 25 18 C 40 9 50 25 50 25 C 50 25 60 9 75 18 C 95 30 90 60 50 85 Z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- doodle: acoustic guitar -->
+    <svg class="doodle doodle-float contact-doodle-guitar" viewBox="0 0 110 150" xmlns="http://www.w3.org/2000/svg">
+      <!-- headstock -->
+      <path class="doodle-draw" d="M44 4 H66 L70 22 H40 Z" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- tuning pegs -->
+      <circle class="doodle-draw" cx="38" cy="8" r="2.5" stroke-width="2"/>
+      <circle class="doodle-draw" cx="36" cy="16" r="2.5" stroke-width="2"/>
+      <circle class="doodle-draw" cx="72" cy="8" r="2.5" stroke-width="2"/>
+      <circle class="doodle-draw" cx="74" cy="16" r="2.5" stroke-width="2"/>
+      <!-- neck -->
+      <rect class="doodle-draw" x="46" y="22" width="18" height="44" stroke-width="2.5"/>
+      <!-- frets -->
+      <path d="M46 32 H64 M46 42 H64 M46 52 H64" stroke-width="1.5"/>
+      <!-- body -->
+      <path class="doodle-draw" d="M22 92 C 8 78 10 58 32 56 C 46 55 50 66 55 66 C 60 66 64 55 78 56 C 100 58 102 78 88 92 C 102 108 102 132 76 144 C 64 150 46 150 34 144 C 8 132 8 108 22 92 Z" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- sound hole -->
+      <circle class="doodle-draw" cx="55" cy="104" r="14" stroke-width="2.5"/>
+      <!-- bridge -->
+      <rect class="doodle-fill doodle-alt" x="44" y="122" width="22" height="5" rx="2"/>
+      <!-- strings -->
+      <path d="M50 24 V144 M55 24 V148 M60 24 V144" stroke-width="1.2"/>
+      <!-- sparkle -->
+      <path class="doodle-fill doodle-twinkle" style="animation-delay:0.4s" d="M90 8 C 91.5 15, 93.5 17, 101 18.5 C 93.5 20, 91.5 22, 90 29 C 88.5 22, 86.5 20, 79 18.5 C 86.5 17, 88.5 15, 90 8 Z"/>
     </svg>
   </section>
 
@@ -890,6 +1281,20 @@
   </footer>
 
   <script>
+    // Mobile nav toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
     // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
