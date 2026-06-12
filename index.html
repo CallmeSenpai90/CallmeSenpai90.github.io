@@ -769,7 +769,6 @@
       .nav-links a { font-size: 0.85rem; }
       h1.hero-name { font-size: 4.2rem; }
       .about-stats { gap: 2rem; }
-      .doodle { display: none; }
       .character-svg:not(.cat-chase):not(.kite-character) { display: none; }
       .hero-village {
         display: block;
@@ -778,6 +777,19 @@
       }
       .cat-chase { width: 90px; bottom: 0.75rem; }
       .kite-character { width: 120px; right: 0; bottom: -1rem; }
+
+      /* keep doodles visible but scaled down & repositioned for small screens */
+      .hero-doodle-arrow { left: 0.5rem; bottom: 7.5rem; width: 55px; }
+      .hero-doodle-star { top: 4.5rem; right: 1rem; width: 60px; }
+      .hero-doodle-artist { top: 0.5rem; left: 0.5rem; width: 100px; }
+      .about-doodle-scribble { top: -1rem; right: -1rem; width: 90px; }
+      .about-doodle-palette { bottom: -1rem; left: -1rem; width: 80px; }
+      .experience-doodle-bulb { top: -0.5rem; right: 0.5rem; width: 70px; }
+      .skills-doodle-pencil { top: -1rem; right: 0.5rem; width: 80px; }
+      .skills-doodle-note { bottom: -0.5rem; left: 0.5rem; width: 70px; }
+      .projects-doodle-spark { top: -1rem; left: auto; right: 0.5rem; width: 60px; }
+      .projects-doodle-camera { bottom: -1rem; right: -0.5rem; width: 85px; }
+      .contact-doodle-guitar { top: -1rem; right: 0.5rem; width: 70px; }
     }
     @media (max-width: 420px) {
       section { padding: 4rem 1.25rem; }
