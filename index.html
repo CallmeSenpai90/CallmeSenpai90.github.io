@@ -665,9 +665,9 @@
     /* ── HERO VILLAGE / PAGODA ── */
     .hero-village {
       position: absolute;
-      top: 0; right: 0;
-      width: 380px;
-      opacity: 0.14;
+      top: 2.5rem; right: 0;
+      width: 430px;
+      opacity: 0.15;
       stroke: var(--accent);
       fill: none;
       stroke-width: 2;
@@ -746,7 +746,7 @@
       .hero-doodle-artist { width: 150px; }
       .hero-doodle-arrow { left: 1rem; bottom: 1rem; width: 90px; }
       .contact-character { width: 130px; right: 1rem; }
-      .hero-village { width: 230px; opacity: 0.12; }
+      .hero-village { width: 270px; top: 1.5rem; opacity: 0.13; }
       .cat-chase { width: 120px; bottom: 1.5rem; }
       .kite-character { width: 150px; right: 0.5rem; left: auto; }
     }
@@ -770,8 +770,14 @@
       h1.hero-name { font-size: 4.2rem; }
       .about-stats { gap: 2rem; }
       .doodle { display: none; }
-      .character-svg { display: none; }
-      .hero-village { display: none; }
+      .character-svg:not(.cat-chase):not(.kite-character) { display: none; }
+      .hero-village {
+        display: block;
+        width: 200px; top: 0.5rem; right: -1.5rem;
+        opacity: 0.11;
+      }
+      .cat-chase { width: 90px; bottom: 0.75rem; }
+      .kite-character { width: 120px; right: 0; bottom: -1rem; }
     }
     @media (max-width: 420px) {
       section { padding: 4rem 1.25rem; }
@@ -788,6 +794,9 @@
       .skill-tags { gap: 0.4rem; }
       .skill-tag { font-size: 0.66rem; padding: 0.35rem 0.7rem; }
       footer { padding: 1.5rem; }
+      .hero-village { width: 160px; opacity: 0.1; }
+      .cat-chase { width: 75px; }
+      .kite-character { width: 100px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -816,54 +825,110 @@
   <section id="hero">
 
     <!-- decorative: chinese-styled pagoda & village skyline -->
-    <svg class="hero-village" viewBox="0 0 460 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <!-- moon -->
-      <circle class="village-fill" cx="402" cy="34" r="20"/>
-      <circle cx="412" cy="26" r="20" fill="#0D0D0D"/>
+    <svg class="hero-village" viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- moon & stars -->
+      <circle class="village-fill" cx="430" cy="38" r="22"/>
+      <circle cx="440" cy="30" r="22" fill="#0D0D0D"/>
+      <path class="doodle-fill doodle-twinkle" style="animation-delay:0.2s" d="M388 20 C 389 26, 391 28, 397 29 C 391 30, 389 32, 388 38 C 387 32, 385 30, 379 29 C 385 28, 387 26, 388 20 Z"/>
+      <path class="doodle-fill doodle-alt doodle-twinkle" style="animation-delay:0.8s" d="M468 62 C 469 66.5, 470 67.5, 474.5 68.5 C 470 69.5, 469 70.5, 468 75 C 467 70.5, 466 69.5, 461.5 68.5 C 466 67.5, 467 66.5, 468 62 Z"/>
+      <circle class="village-fill doodle-twinkle" style="animation-delay:1.2s" cx="372" cy="58" r="2.5"/>
+
+      <!-- drifting clouds -->
+      <path d="M16 48 C 20 39 36 37 43 44 C 49 35 67 37 70 47 C 81 42 95 49 90 60 C 99 62 96 73 83 73 L 26 73 C 13 75 6 61 16 48 Z"/>
+      <path d="M122 16 C 125 11 136 10 140 15 C 145 9 158 11 160 17 C 168 15 176 21 172 27 L 131 27 C 121 28 115 21 122 16 Z"/>
+
+      <!-- birds -->
+      <path d="M152 52 q6 -7 12 0 q6 -7 12 0" stroke-width="1.5"/>
+      <path d="M250 30 q5 -6 10 0 q5 -6 10 0" stroke-width="1.5"/>
+      <path d="M204 76 q4 -5 8 0 q4 -5 8 0" stroke-width="1.5"/>
 
       <!-- distant hills -->
-      <path d="M0 200 C 60 180 120 195 180 185 C 240 175 300 195 360 188 C 410 183 440 195 460 190"/>
+      <path d="M0 196 C 60 178 120 192 180 184 C 240 176 300 194 360 188 C 410 184 460 194 500 190" stroke-width="1.5"/>
+
+      <!-- left pine tree -->
+      <g>
+        <path d="M108 162 L132 162 L120 145 Z"/>
+        <path d="M104 145 L136 145 L120 128 Z"/>
+        <path d="M100 128 L140 128 L120 111 Z"/>
+        <line x1="120" y1="162" x2="120" y2="177"/>
+      </g>
+      <!-- right pine tree -->
+      <g>
+        <path d="M428 172 L452 172 L440 155 Z"/>
+        <path d="M424 155 L456 155 L440 138 Z"/>
+        <line x1="440" y1="172" x2="440" y2="186"/>
+      </g>
 
       <!-- left village hut -->
-      <path d="M14 158 L54 126 L94 158 Z"/>
-      <rect x="28" y="158" width="52" height="48"/>
-      <rect x="46" y="178" width="16" height="28"/>
-      <line x1="14" y1="158" x2="94" y2="158"/>
+      <path d="M14 178 L54 146 L94 178 Z"/>
+      <path d="M22 168 L86 168 M26 178 L82 178" stroke-width="1.2"/>
+      <rect x="28" y="178" width="52" height="48"/>
+      <rect x="46" y="198" width="16" height="28"/>
+      <circle cx="40" cy="194" r="5"/>
+      <circle cx="68" cy="194" r="5"/>
 
       <!-- right village hut -->
-      <path d="M330 168 L365 142 L400 168 Z"/>
-      <rect x="342" y="168" width="46" height="38"/>
-      <line x1="330" y1="168" x2="400" y2="168"/>
+      <path d="M340 188 L375 162 L410 188 Z"/>
+      <path d="M346 180 L404 180" stroke-width="1.2"/>
+      <rect x="352" y="188" width="46" height="38"/>
+      <circle cx="375" cy="206" r="5"/>
 
-      <!-- pagoda spire -->
-      <line x1="240" y1="8" x2="240" y2="40"/>
-      <circle class="village-fill" cx="240" cy="8" r="4"/>
-      <ellipse cx="240" cy="20" rx="9" ry="3"/>
-      <ellipse cx="240" cy="30" rx="13" ry="3"/>
+      <!-- pagoda spire & banner -->
+      <line x1="260" y1="6" x2="260" y2="44"/>
+      <circle class="village-fill" cx="260" cy="6" r="4"/>
+      <ellipse cx="260" cy="16" rx="7" ry="2.5"/>
+      <ellipse cx="260" cy="24" rx="10" ry="2.5"/>
+      <ellipse cx="260" cy="33" rx="13" ry="3"/>
+      <path class="village-fill-alt" d="M261 8 L281 14 L261 20 Z"/>
 
-      <!-- pagoda tier 1 (top) -->
-      <path d="M205 64 C 196 50 218 42 240 44 C 262 42 284 50 275 64 Z"/>
-      <rect x="218" y="64" width="44" height="34"/>
+      <!-- pagoda tier 1 (top) with upturned eaves -->
+      <path d="M222 70 C 213 56 235 48 260 50 C 285 48 307 56 298 70 Z"/>
+      <path d="M222 70 c -8 -2 -12 -8 -8 -14" stroke-width="1.6"/>
+      <path d="M298 70 c 8 -2 12 -8 8 -14" stroke-width="1.6"/>
+      <rect x="238" y="70" width="44" height="32"/>
+      <circle cx="260" cy="86" r="6"/>
 
       <!-- pagoda tier 2 -->
-      <path d="M182 102 C 170 86 200 76 240 78 C 280 76 310 86 298 102 Z"/>
-      <rect x="200" y="102" width="80" height="40"/>
-      <path d="M232 142 L232 116 L248 116 L248 142"/>
+      <path d="M196 110 C 184 92 215 82 260 84 C 305 82 336 92 324 110 Z"/>
+      <path d="M196 110 c -9 -3 -13 -10 -8 -17" stroke-width="1.6"/>
+      <path d="M324 110 c 9 -3 13 -10 8 -17" stroke-width="1.6"/>
+      <rect x="214" y="110" width="92" height="42"/>
+      <circle cx="240" cy="131" r="6"/>
+      <circle cx="280" cy="131" r="6"/>
+      <path d="M254 152 L254 122 L266 122 L266 152"/>
 
       <!-- pagoda tier 3 (bottom, widest) -->
-      <path d="M150 146 C 134 126 175 114 240 116 C 305 114 346 126 330 146 Z"/>
-      <rect x="172" y="146" width="136" height="50"/>
-      <line x1="172" y1="170" x2="308" y2="170"/>
+      <path d="M158 156 C 142 134 188 120 260 122 C 332 120 378 134 362 156 Z"/>
+      <path d="M158 156 c -10 -4 -15 -12 -9 -20" stroke-width="1.8"/>
+      <path d="M362 156 c 10 -4 15 -12 9 -20" stroke-width="1.8"/>
+      <rect x="182" y="156" width="156" height="56"/>
+      <line x1="182" y1="182" x2="338" y2="182"/>
+      <circle cx="205" cy="172" r="6"/>
+      <circle cx="315" cy="172" r="6"/>
+      <path d="M244 212 L244 178 C 244 170 276 170 276 178 L 276 212"/>
 
-      <!-- base platform -->
-      <rect x="150" y="196" width="180" height="10"/>
-      <rect x="135" y="206" width="210" height="8"/>
+      <!-- lantern string under the eaves -->
+      <path d="M168 156 C 220 168 300 168 352 156" stroke-width="1.2" stroke-dasharray="2 4"/>
+      <line x1="195" y1="160" x2="195" y2="174"/>
+      <rect class="village-fill-alt lantern-glow" x="187" y="174" width="16" height="20" rx="5"/>
+      <line x1="232" y1="165" x2="232" y2="180"/>
+      <rect class="village-fill lantern-glow" style="animation-delay:0.4s" x="224" y="180" width="16" height="20" rx="5"/>
+      <line x1="288" y1="165" x2="288" y2="180"/>
+      <rect class="village-fill lantern-glow" style="animation-delay:0.8s" x="280" y="180" width="16" height="20" rx="5"/>
+      <line x1="325" y1="160" x2="325" y2="174"/>
+      <rect class="village-fill-alt lantern-glow" style="animation-delay:1.2s" x="317" y="174" width="16" height="20" rx="5"/>
 
-      <!-- hanging lanterns -->
-      <line x1="195" y1="64" x2="195" y2="80"/>
-      <rect class="village-fill-alt lantern-glow" x="188" y="80" width="14" height="18" rx="4"/>
-      <line x1="285" y1="64" x2="285" y2="80"/>
-      <rect class="village-fill-alt lantern-glow" x="278" y="80" width="14" height="18" rx="4" style="animation-delay:0.6s"/>
+      <!-- base platform steps -->
+      <rect x="170" y="212" width="180" height="9"/>
+      <rect x="158" y="221" width="204" height="8"/>
+      <rect x="146" y="229" width="228" height="8"/>
+
+      <!-- front wall with moon gate -->
+      <rect x="10" y="250" width="220" height="24"/>
+      <rect x="270" y="250" width="220" height="24"/>
+      <circle cx="260" cy="262" r="26"/>
+      <path d="M20 250 L40 274 M40 250 L60 274 M60 250 L80 274 M80 250 L100 274 M100 250 L120 274 M120 250 L140 274 M140 250 L160 274 M160 250 L180 274 M180 250 L200 274 M200 250 L220 274" stroke-width="1"/>
+      <path d="M280 250 L300 274 M300 250 L320 274 M320 250 L340 274 M340 250 L360 274 M360 250 L380 274 M380 250 L400 274 M400 250 L420 274 M420 250 L440 274 M440 250 L460 274 M460 250 L480 274" stroke-width="1"/>
     </svg>
 
     <!-- animation: cat chasing a ball of yarn (right to left) -->
