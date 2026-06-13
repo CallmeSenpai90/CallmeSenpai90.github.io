@@ -416,6 +416,17 @@
       transition: transform 0.4s ease;
     }
     .project-card:hover .thumb-img img { transform: scale(1.04); }
+    .thumb-split {
+      display: flex;
+      gap: 2px;
+      cursor: zoom-in;
+    }
+    .thumb-split a {
+      flex: 1;
+      display: block;
+      overflow: hidden;
+      height: 100%;
+    }
     .project-info { padding: 1.5rem; }
     .project-tag {
       font-family: var(--util);
@@ -448,6 +459,13 @@
       transition: opacity 0.2s;
     }
     .project-card:hover .project-link { opacity: 1; }
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      margin-top: 1rem;
+    }
+    .project-links .project-link { margin-top: 0; }
 
     /* ── SKILLS ── */
     #skills { background: var(--bg); }
@@ -1129,25 +1147,22 @@
     </svg>
     <div class="projects-grid">
       <div class="project-card reveal">
-        <a href="livesmart-catalogue.png" target="_blank" rel="noopener" class="project-thumb thumb-img">
-          <img src="livesmart-catalogue.png" alt="Live Smart Pvt. Ltd. furniture catalogue design" />
-        </a>
+        <div class="project-thumb thumb-img thumb-split">
+          <a href="livesmart-catalogue.png" target="_blank" rel="noopener">
+            <img src="livesmart-catalogue.png" alt="Live Smart Pvt. Ltd. furniture catalogue design" />
+          </a>
+          <a href="chhristmas_offer-livesmart.png" target="_blank" rel="noopener">
+            <img src="chhristmas_offer-livesmart.png" alt="Live Smart Pvt. Ltd. Christmas sale offer design" />
+          </a>
+        </div>
         <div class="project-info">
           <div class="project-tag">Brand & Print Design</div>
-          <div class="project-name">Live Smart Pvt. Ltd. — Furniture Catalogue</div>
-          <div class="project-desc">Designed a complete furniture catalogue and brand layout for Live Smart Pvt. Ltd., including product spreads, branding elements, and lifestyle compositions for their "Designing Spaces That Tastes Better" campaign.</div>
-          <a href="livesmart-catalogue.png" target="_blank" rel="noopener" class="project-link">View Project →</a>
-        </div>
-      </div>
-      <div class="project-card reveal">
-        <a href="chhristmas_offer-livesmart.png" target="_blank" rel="noopener" class="project-thumb thumb-img">
-          <img src="chhristmas_offer-livesmart.png" alt="Live Smart Pvt. Ltd. Christmas sale offer design" />
-        </a>
-        <div class="project-info">
-          <div class="project-tag">Social Campaign</div>
-          <div class="project-name">Live Smart Pvt. Ltd. — Christmas Sale Campaign</div>
-          <div class="project-desc">Designed a festive Christmas &amp; New Year sale promo for Live Smart Pvt. Ltd., featuring discounted furniture pricing, holiday illustrations, and a "Shop Now" call-to-action across their seasonal campaign.</div>
-          <a href="chhristmas_offer-livesmart.png" target="_blank" rel="noopener" class="project-link">View Project →</a>
+          <div class="project-name">Live Smart Pvt. Ltd. — Catalogue &amp; Seasonal Campaign</div>
+          <div class="project-desc">Designed a complete furniture catalogue and brand layout for Live Smart Pvt. Ltd., along with a festive Christmas &amp; New Year sale promo featuring discounted pricing, holiday illustrations, and a "Shop Now" call-to-action for their seasonal campaign.</div>
+          <div class="project-links">
+            <a href="livesmart-catalogue.png" target="_blank" rel="noopener" class="project-link">Catalogue →</a>
+            <a href="chhristmas_offer-livesmart.png" target="_blank" rel="noopener" class="project-link">Christmas Campaign →</a>
+          </div>
         </div>
       </div>
       <div class="project-card reveal">
@@ -1162,21 +1177,25 @@
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-thumb thumb-2"><span>🎬</span></div>
+        <a href="illustrations.png" target="_blank" rel="noopener" class="project-thumb thumb-img">
+          <img src="illustrations.png" alt="Hand-drawn pencil and ink illustration sketches collection" />
+        </a>
         <div class="project-info">
-          <div class="project-tag">Motion Graphics</div>
-          <div class="project-name">Prism Motion Reel</div>
-          <div class="project-desc">A 60-second animated showreel featuring kinetic typography, logo animations, and 2D character motion.</div>
-          <a href="#" class="project-link">View Project →</a>
+          <div class="project-tag">Illustration &amp; 2D Animation</div>
+          <div class="project-name">Sketchbook — Illustration &amp; Animation Studies</div>
+          <div class="project-desc">A collection of hand-drawn pencil and ink illustrations and frame studies — character poses, urban scenes, and nature sketches used as the foundation for 2D animation and concept work.</div>
+          <a href="illustrations.png" target="_blank" rel="noopener" class="project-link">View Project →</a>
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-thumb thumb-3"><span>🌿</span></div>
+        <a href="GOECO.png" target="_blank" rel="noopener" class="project-thumb thumb-img">
+          <img src="GOECO.png" alt="GOECO environmental awareness social media campaign design" />
+        </a>
         <div class="project-info">
           <div class="project-tag">Social Campaign</div>
-          <div class="project-name">GreenRoot Nepal</div>
-          <div class="project-desc">Visual campaign for an environmental NGO — animated Instagram stories, posters, and digital banners.</div>
-          <a href="#" class="project-link">View Project →</a>
+          <div class="project-name">GOECO — Environmental Awareness Series</div>
+          <div class="project-desc">A set of playful, illustrated social media posters for GOECO promoting environmental care — covering themes like loving the planet, going plastic-free &amp; recycling, and protecting ocean life.</div>
+          <a href="GOECO.png" target="_blank" rel="noopener" class="project-link">View Project →</a>
         </div>
       </div>
       <div class="project-card reveal">
