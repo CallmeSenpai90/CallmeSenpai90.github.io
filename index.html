@@ -373,10 +373,12 @@
       cursor: pointer;
       will-change: transform;
     }
-    .project-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--accent);
-      box-shadow: 0 24px 60px -24px rgba(184,150,122,0.4);
+    @media (hover: hover) and (pointer: fine) {
+      .project-card:hover {
+        transform: translateY(-6px);
+        border-color: var(--accent);
+        box-shadow: 0 24px 60px -24px rgba(184,150,122,0.4);
+      }
     }
     .project-thumb {
       aspect-ratio: 16/9;
@@ -459,6 +461,9 @@
       transition: opacity 0.2s;
     }
     .project-card:hover .project-link { opacity: 1; }
+    @media (hover: none) {
+      .project-link { opacity: 1; }
+    }
     .project-links {
       display: flex;
       flex-wrap: wrap;
@@ -909,6 +914,9 @@
       .projects-doodle-spark { top: -1rem; left: auto; right: 0.5rem; width: 60px; }
       .projects-doodle-camera { bottom: -1rem; right: -0.5rem; width: 85px; }
       .contact-doodle-guitar { top: -1rem; right: 0.5rem; width: 70px; }
+
+      .project-thumb.thumb-split { flex-direction: column; aspect-ratio: auto; }
+      .thumb-split a { aspect-ratio: 16/9; height: auto; }
     }
     @media (max-width: 420px) {
       section { padding: 4rem 1.25rem; }
@@ -933,6 +941,116 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 13, 13, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      backdrop-filter: blur(6px);
+    }
+    .lightbox-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 92vw;
+      max-height: 90vh;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .lightbox-overlay.active .lightbox-content {
+      transform: scale(1);
+    }
+    .lightbox-content img {
+      display: block;
+      max-width: 92vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -2.75rem;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      color: var(--text);
+      font-size: 1.25rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .lightbox-close:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+      z-index: 1001;
+    }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+    .lightbox-nav svg { width: 22px; height: 22px; }
+    .lightbox-nav:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+      transform: translateY(-50%) scale(1.08);
+    }
+    .lightbox-nav.hidden { display: none; }
+    @media (max-width: 600px) {
+      .lightbox-nav {
+        width: 38px;
+        height: 38px;
+      }
+      .lightbox-prev { left: 0.4rem; }
+      .lightbox-next { right: 0.4rem; }
+      .lightbox-nav svg { width: 18px; height: 18px; }
+    }
+    @media (max-width: 600px) {
+      .lightbox-overlay { padding: 1rem; }
+      .lightbox-content { max-width: 100vw; max-height: 85vh; }
+      .lightbox-content img { max-width: 100vw; max-height: 85vh; border-radius: 6px; }
+      .lightbox-close {
+        top: -3rem;
+        right: 0;
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
@@ -996,7 +1114,7 @@
 
     <p class="hero-tag"><span class="live-dot"></span>Available for freelance</p>
     <h1 class="hero-name">SAMEER<br><em>RAI</em></h1>
-    <p class="hero-sub">A passionate Graphic Designer &amp; Animator with a lifelong love for art — turning imagination into visual stories through design and motion.</p>
+    <p class="hero-sub">Turning imagination into visual stories — through design and motion.</p>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary">View Work</a>
       <a href="#contact" class="btn btn-outline">Get in Touch</a>
@@ -1147,82 +1265,88 @@
     </svg>
     <div class="projects-grid">
       <div class="project-card reveal">
+        <a href="illustrations.png" data-lightbox="illustrations.png" class="project-thumb thumb-img lightbox-link">
+          <img src="illustrations.png" alt="Digital illustration studies created in Procreate" />
+        </a>
+        <div class="project-info">
+          <div class="project-tag">Illustration &amp; 2D Animation</div>
+          <div class="project-name">Sketchbook — Digital Illustration Studies</div>
+          <div class="project-desc">A collection of digital illustrations I created in Procreate — character poses, urban scenes, and animation reference studies, all done to sharpen my observational drawing and motion skills.</div>
+          <a href="illustrations.png" data-lightbox="illustrations.png" class="project-link lightbox-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <a href="logos.png" data-lightbox="logos.png" class="project-thumb thumb-img lightbox-link">
+          <img src="logos.png" alt="Collection of logo designs for various brands" />
+        </a>
+        <div class="project-info">
+          <div class="project-tag">Logo Design</div>
+          <div class="project-name">Logo Collection</div>
+          <div class="project-desc">A selection of brand logos and identity marks I designed for clients across cafes, clinics, pharmacies, retail, and personal brands — each tailored to its industry and tone.</div>
+          <a href="logos.png" data-lightbox="logos.png" class="project-link lightbox-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
         <div class="project-thumb thumb-img thumb-split">
-          <a href="livesmart-catalogue.png" target="_blank" rel="noopener">
+          <a class="lightbox-link" href="livesmart-catalogue.png" data-lightbox="livesmart-catalogue.png" data-gallery="livesmart">
             <img src="livesmart-catalogue.png" alt="Live Smart Pvt. Ltd. furniture catalogue design" />
           </a>
-          <a href="chhristmas_offer-livesmart.png" target="_blank" rel="noopener">
+          <a class="lightbox-link" href="chhristmas_offer-livesmart.png" data-lightbox="chhristmas_offer-livesmart.png" data-gallery="livesmart">
             <img src="chhristmas_offer-livesmart.png" alt="Live Smart Pvt. Ltd. Christmas sale offer design" />
           </a>
         </div>
         <div class="project-info">
           <div class="project-tag">Brand & Print Design</div>
           <div class="project-name">Live Smart Pvt. Ltd. — Catalogue &amp; Seasonal Campaign</div>
-          <div class="project-desc">Designed a complete furniture catalogue and brand layout for Live Smart Pvt. Ltd., along with a festive Christmas &amp; New Year sale promo featuring discounted pricing, holiday illustrations, and a "Shop Now" call-to-action for their seasonal campaign.</div>
+          <div class="project-desc">I designed a complete furniture catalogue and brand layout for Live Smart Pvt. Ltd., along with a festive Christmas &amp; New Year sale promo featuring discounted pricing, holiday illustrations, and a "Shop Now" call-to-action for their seasonal campaign.</div>
           <div class="project-links">
-            <a href="livesmart-catalogue.png" target="_blank" rel="noopener" class="project-link">Catalogue →</a>
-            <a href="chhristmas_offer-livesmart.png" target="_blank" rel="noopener" class="project-link">Christmas Campaign →</a>
+            <a href="livesmart-catalogue.png" data-lightbox="livesmart-catalogue.png" data-gallery="livesmart" class="project-link lightbox-link">Catalogue →</a>
+            <a href="chhristmas_offer-livesmart.png" data-lightbox="chhristmas_offer-livesmart.png" data-gallery="livesmart" class="project-link lightbox-link">Christmas Campaign →</a>
           </div>
         </div>
       </div>
       <div class="project-card reveal">
-        <a href="Sichuan.png" target="_blank" rel="noopener" class="project-thumb thumb-img">
+        <a href="Sichuan.png" data-lightbox="Sichuan.png" class="project-thumb thumb-img lightbox-link">
           <img src="Sichuan.png" alt="Sichuan Cafe & Restro brand and menu design" />
         </a>
         <div class="project-info">
           <div class="project-tag">Brand & Menu Design</div>
           <div class="project-name">Sichuan Cafe & Restro</div>
-          <div class="project-desc">Designed the brand identity and festive menu layout for Sichuan Cafe & Restro — including logo, mascot illustration, and a Chinese New Year-themed promotional menu spread.</div>
-          <a href="Sichuan.png" target="_blank" rel="noopener" class="project-link">View Project →</a>
+          <div class="project-desc">I created the brand identity and festive menu layout for Sichuan Cafe & Restro — including the logo, mascot illustration, and a Chinese New Year-themed promotional menu spread.</div>
+          <a href="Sichuan.png" data-lightbox="Sichuan.png" class="project-link lightbox-link">View Project →</a>
         </div>
       </div>
       <div class="project-card reveal">
-        <a href="illustrations.png" target="_blank" rel="noopener" class="project-thumb thumb-img">
-          <img src="illustrations.png" alt="Hand-drawn pencil and ink illustration sketches collection" />
-        </a>
-        <div class="project-info">
-          <div class="project-tag">Illustration &amp; 2D Animation</div>
-          <div class="project-name">Sketchbook — Illustration &amp; Animation Studies</div>
-          <div class="project-desc">A collection of hand-drawn pencil and ink illustrations and frame studies — character poses, urban scenes, and nature sketches used as the foundation for 2D animation and concept work.</div>
-          <a href="illustrations.png" target="_blank" rel="noopener" class="project-link">View Project →</a>
-        </div>
-      </div>
-      <div class="project-card reveal">
-        <a href="GOECO.png" target="_blank" rel="noopener" class="project-thumb thumb-img">
-          <img src="GOECO.png" alt="GOECO environmental awareness social media campaign design" />
+        <a href="GOECO.png" data-lightbox="GOECO.png" class="project-thumb thumb-img lightbox-link">
+          <img src="GOECO.png" alt="GOECO environmental awareness campaign series" />
         </a>
         <div class="project-info">
           <div class="project-tag">Social Campaign</div>
           <div class="project-name">GOECO — Environmental Awareness Series</div>
-          <div class="project-desc">A set of playful, illustrated social media posters for GOECO promoting environmental care — covering themes like loving the planet, going plastic-free &amp; recycling, and protecting ocean life.</div>
-          <a href="GOECO.png" target="_blank" rel="noopener" class="project-link">View Project →</a>
+          <div class="project-desc">I designed a set of illustrated social media posters for GOECO promoting environmental care — covering plastic reduction, recycling, and ocean conservation through playful, eco-friendly visuals.</div>
+          <a href="GOECO.png" data-lightbox="GOECO.png" class="project-link lightbox-link">View Project →</a>
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-thumb thumb-4"><span>✦</span></div>
-        <div class="project-info">
-          <div class="project-tag">Explainer Animation</div>
-          <div class="project-name">FinFlow App Intro</div>
-          <div class="project-desc">90-second explainer animation for a fintech startup, scripted and animated end-to-end in After Effects.</div>
-          <a href="#" class="project-link">View Project →</a>
-        </div>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-thumb thumb-5"><span>💫</span></div>
-        <div class="project-info">
-          <div class="project-tag">Illustration</div>
-          <div class="project-name">Neon Dreamscape Series</div>
-          <div class="project-desc">A personal series of 8 editorial illustrations exploring Kathmandu nightlife through bold, neon-drenched visuals.</div>
-          <a href="#" class="project-link">View Project →</a>
-        </div>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-thumb thumb-6"><span>📦</span></div>
+        <a href="HIMALAYANBREW.png" data-lightbox="HIMALAYANBREW.png" class="project-thumb thumb-img lightbox-link">
+          <img src="HIMALAYANBREW.png" alt="Himalayan Brew Co. coffee packaging and branding" />
+        </a>
         <div class="project-info">
           <div class="project-tag">Packaging Design</div>
           <div class="project-name">Himalayan Brew Co.</div>
-          <div class="project-desc">Label and packaging design for an artisan tea brand — from concept sketching to print-ready files.</div>
-          <a href="#" class="project-link">View Project →</a>
+          <div class="project-desc">I created the brand identity and packaging design for Himalayan Brew Co., a Nepal-based coffee roastery — including the logo badge, coffee bag labels, and lifestyle promotional visuals.</div>
+          <a href="HIMALAYANBREW.png" data-lightbox="HIMALAYANBREW.png" class="project-link lightbox-link">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <a href="MeroTests.png" data-lightbox="MeroTests.png" class="project-thumb thumb-img lightbox-link">
+          <img src="MeroTests.png" alt="Merotests app UI design — login and dashboard screens" />
+        </a>
+        <div class="project-info">
+          <div class="project-tag">UI/UX Design</div>
+          <div class="project-name">Merotests — App UI Design</div>
+          <div class="project-desc">I designed the login and dashboard interface for Merotests, a mock-test preparation platform — including course cards, performance stats, and a clean, student-friendly layout.</div>
+          <a href="MeroTests.png" data-lightbox="MeroTests.png" class="project-link lightbox-link">View Project →</a>
         </div>
       </div>
     </div>
@@ -1296,7 +1420,7 @@
   <section id="contact">
     <div class="section-label">Say Hello</div>
     <h2 class="section-title">Let's Make<br>Something Bold</h2>
-    <p>Got a project in mind? Whether it's a brand refresh, a motion piece, or something entirely new — let's talk.</p>
+    <p>Got a project in mind? Let's make it happen.</p>
     <a href="mailto:srai99132@gmail.com" class="btn btn-primary">srai99132@gmail.com</a>
     <div class="contact-socials">
       <a href="tel:+9779742277431" class="social-link">
@@ -1346,6 +1470,19 @@
   </footer>
 
   <!-- back to top -->
+  <div class="lightbox-overlay" id="lightboxOverlay">
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+      <img id="lightboxImg" src="" alt="Project preview" />
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
   <button class="back-to-top" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
   </button>
@@ -1498,6 +1635,97 @@
     }, { passive: true });
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Project image lightbox (popup instead of new tab)
+    const lightboxOverlay = document.getElementById('lightboxOverlay');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    // Build galleries from data-gallery attributes
+    const galleries = {};
+    document.querySelectorAll('.lightbox-link[data-gallery]').forEach(link => {
+      const key = link.dataset.gallery;
+      const src = link.dataset.lightbox || link.getAttribute('href');
+      const img = link.querySelector('img');
+      const alt = img ? img.alt : link.textContent.trim();
+      if (!galleries[key]) galleries[key] = [];
+      if (!galleries[key].some(item => item.src === src)) {
+        galleries[key].push({ src, alt });
+      }
+    });
+
+    let currentGallery = null;
+    let currentIndex = 0;
+
+    function updateLightboxImage() {
+      const item = currentGallery ? galleries[currentGallery][currentIndex] : null;
+      if (item) {
+        lightboxImg.src = item.src;
+        lightboxImg.alt = item.alt;
+      }
+      const showNav = currentGallery && galleries[currentGallery].length > 1;
+      lightboxPrev.classList.toggle('hidden', !showNav);
+      lightboxNext.classList.toggle('hidden', !showNav);
+    }
+
+    function openLightbox(src, alt, galleryKey) {
+      if (galleryKey && galleries[galleryKey]) {
+        currentGallery = galleryKey;
+        currentIndex = galleries[galleryKey].findIndex(item => item.src === src);
+        if (currentIndex === -1) currentIndex = 0;
+      } else {
+        currentGallery = null;
+        currentIndex = 0;
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || 'Project preview';
+      }
+      updateLightboxImage();
+      lightboxOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightboxOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+      currentGallery = null;
+    }
+    function showPrev() {
+      if (!currentGallery) return;
+      const len = galleries[currentGallery].length;
+      currentIndex = (currentIndex - 1 + len) % len;
+      updateLightboxImage();
+    }
+    function showNext() {
+      if (!currentGallery) return;
+      const len = galleries[currentGallery].length;
+      currentIndex = (currentIndex + 1) % len;
+      updateLightboxImage();
+    }
+
+    document.querySelectorAll('.lightbox-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const src = link.dataset.lightbox || link.getAttribute('href');
+        const img = link.querySelector('img');
+        const alt = img ? img.alt : link.textContent.trim();
+        openLightbox(src, alt, link.dataset.gallery);
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', showPrev);
+    lightboxNext.addEventListener('click', showNext);
+    lightboxOverlay.addEventListener('click', (e) => {
+      if (e.target === lightboxOverlay) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!lightboxOverlay.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
     });
   </script>
 </body>
